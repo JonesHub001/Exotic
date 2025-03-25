@@ -183,43 +183,7 @@
     <hr>
 
 <script src="js/jquery.min.js"></script>
-<script>
-    function simpleContactForm(elem) {
-        var msg = '';
-        var form = true;
-        var formId = elem.attr('id');
-        var disabled = elem.prop('disabled');
-        var formAction = elem.attr('action');
 
-        // Validate required fields
-        $('.smrequired').each(function() {
-            if ($(this).val().trim() === '') {
-                form = false;
-                msg += $(this).attr('placeholder') + ' is required\n';
-            }
-        });
-
-        if (!form) {
-            alert(msg);
-            return false;
-        }
-
-		// Get reCAPTCHA token
-	//     grecaptcha.ready(function() {
-	//         grecaptcha.execute('6Lft__kUAAAAAI2pMIBzx93BN4bWuC4Y55965jhd', {action: 'contact'}).then(function(token) {
-	//             $('#token').val(token);
-	//             $('#action').val('contact');
-	//             elem.submit();
-	//         });
-	//     });
-
-		return false;
-	}
-
-    $('#sm-form').submit(function() {
-        return simpleContactForm($(this));
-    });
-</script>
 </body>
 <footer>
     <p>Exotic Bullies Kennels Inc Copyright &copy; 2025</p>
