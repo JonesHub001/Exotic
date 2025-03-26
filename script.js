@@ -23,6 +23,10 @@ toggleButton.addEventListener('click',() => {
             email: document.getElementsByName('email')[0].value.trim(),
             phone: document.getElementsByName('phone')[0].value.trim(),
             message: document.getElementsByName('message')[0].value.trim(),
+            address: document.getElementsByName('address')[0].value.trim(),
+            pname: document.getElementsByName('pname')[0].value.trim(),
+
+
         };
 
         // Validate required fields
@@ -31,6 +35,8 @@ toggleButton.addEventListener('click',() => {
         if (!formData.lname) errorMessage += 'Last name is required.\n';
         if (!formData.email) errorMessage += 'Email is required.\n';
         if (!formData.message) errorMessage += 'Message is required.\n';
+        if (!formData.address) errorMessage += 'Address is required.\n';
+        if (!formData.pname) errorMessage += 'Product name is required.\n';
 
         if (errorMessage) {
             document.querySelector('.error-msg').textContent = errorMessage;
