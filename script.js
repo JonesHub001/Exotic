@@ -1,61 +1,65 @@
-var toggleButton = document.getElementsByClassName('toggle-button')[0]
-var navbarLinks = document.getElementsByClassName('navbar-links')[0]
+const toggleButton = document.querySelector('.toggle-button');
+const navbarLinks = document.querySelector('.navbar-links');
 
-toggleButton.addEventListener('click',() => {
-	navbarLinks.classList.toggle('active')
-})
+if (toggleButton && navbarLinks) {
+  toggleButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    const isActive = navbarLinks.classList.toggle('active');
+    toggleButton.setAttribute('aria-expanded', String(isActive));
+  });
+}
 
+const contactForm = document.getElementById('sm-form');
 
+if (contactForm && typeof emailjs !== 'undefined') {
+  emailjs.init('bureTdiiB3seKPaKA');
 
-// Removed invalid <script> tag. Ensure the EmailJS script is included in the HTML file.
+  contactForm.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-    // Initialize EmailJS
-    emailjs.init("bureTdiiB3seKPaKA"); // Replace with your EmailJS Public Key
+    const formData = {
+      fname: document.getElementsByName('fname')[0]?.value.trim() || '',
+      lname: document.getElementsByName('lname')[0]?.value.trim() || '',
+      email: document.getElementsByName('email')[0]?.value.trim() || '',
+      phone: document.getElementsByName('phone')[0]?.value.trim() || '',
+      message: document.getElementsByName('message')[0]?.value.trim() || '',
+      address: document.getElementsByName('address')[0]?.value.trim() || '',
+      pname: document.getElementsByName('pname')[0]?.value.trim() || ''
+    };
 
-    // Handle form submission
-    document.getElementById('sm-form').addEventListener('submit', function (e) {
-        e.preventDefault(); // Prevent default form submission
+    let errorMessage = '';
+    if (!formData.fname) errorMessage += 'First name is required.\n';
+    if (!formData.lname) errorMessage += 'Last name is required.\n';
+    if (!formData.email) errorMessage += 'Email is required.\n';
+    if (!formData.message) errorMessage += 'Message is required.\n';
+    if (!formData.address) errorMessage += 'Address is required.\n';
+    if (!formData.pname) errorMessage += 'Product name is required.\n';
 
-        // Collect form data
-        const formData = {
-            fname: document.getElementsByName('fname')[0].value.trim(),
-            lname: document.getElementsByName('lname')[0].value.trim(),
-            email: document.getElementsByName('email')[0].value.trim(),
-            phone: document.getElementsByName('phone')[0].value.trim(),
-            message: document.getElementsByName('message')[0].value.trim(),
-            address: document.getElementsByName('address')[0].value.trim(),
-            pname: document.getElementsByName('pname')[0].value.trim(),
+    const errorBox = document.querySelector('.error-msg');
+    const thanksBox = document.querySelector('#thanks_msg');
 
+    if (errorMessage) {
+      if (errorBox) {
+        errorBox.textContent = errorMessage;
+        errorBox.style.display = 'block';
+      }
+      if (thanksBox) thanksBox.style.display = 'none';
+      return;
+    }
 
-        };
-
-        // Validate required fields
-        let errorMessage = '';
-        if (!formData.fname) errorMessage += 'First name is required.\n';
-        if (!formData.lname) errorMessage += 'Last name is required.\n';
-        if (!formData.email) errorMessage += 'Email is required.\n';
-        if (!formData.message) errorMessage += 'Message is required.\n';
-        if (!formData.address) errorMessage += 'Address is required.\n';
-        if (!formData.pname) errorMessage += 'Product name is required.\n';
-
-        if (errorMessage) {
-            document.querySelector('.error-msg').textContent = errorMessage;
-            document.querySelector('.error-msg').style.display = 'block';
-            document.querySelector('#thanks_msg').style.display = 'none';
-            return;
+    emailjs.send('service_53hyd8i', 'template_tbdj4vl', formData).then(
+      function () {
+        if (thanksBox) thanksBox.style.display = 'block';
+        if (errorBox) errorBox.style.display = 'none';
+        contactForm.reset();
+      },
+      function () {
+        if (errorBox) {
+          errorBox.textContent = 'Failed to send your message. Please try again.';
+          errorBox.style.display = 'block';
         }
-
-        // Send email using EmailJS
-        emailjs.send("service_53hyd8i", "template_tbdj4vl", formData)
-            .then(function (response) {
-                console.log("SUCCESS!", response.status, response.text);
-                document.querySelector('#thanks_msg').style.display = 'block';
-                document.querySelector('.error-msg').style.display = 'none';
-                document.getElementById('sm-form').reset(); // Clear the form
-            }, function (error) {
-                console.log("FAILED...", error);
-                document.querySelector('.error-msg').textContent = 'Failed to send your message. Please try again.';
-                document.querySelector('.error-msg').style.display = 'block';
-                document.querySelector('#thanks_msg').style.display = 'none';
-            });
-    });
+        if (thanksBox) thanksBox.style.display = 'none';
+      }
+    );
+  });
+}

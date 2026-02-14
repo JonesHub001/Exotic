@@ -103,3 +103,13 @@
 
 
 
+
+.navbar-links li a {
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.toggle-button:focus-visible,
+.navbar-links li a:focus-visible {
+    outline: 2px solid #d4af37;
+    outline-offset: 3px;
+}
