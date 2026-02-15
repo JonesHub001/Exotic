@@ -584,3 +584,43 @@ ifame {
 	}
 }
 
+
+body {
+    color: #c7c7c7;
+    line-height: 1.7;
+}
+
+.main-content {
+    max-width: 1200px;
+}
+
+@media (max-width: 920px) {
+    .main-content {
+        padding: 14px;
+    }
+
+    article,
+    .full-article,
+    .white,
+    .black-aside,
+    .shop,
+    .pay-colars,
+    .pay-leashes,
+    .Picks,
+    .Picks2 {
+        width: 100%;
+        float: none;
+        margin: 0 0 20px 0;
+        padding: 10px;
+    }
+
+    .body-black img,
+    .temperament img,
+    .white-article img,
+    .Article-img {
+        float: none;
+        width: min(100%, 320px);
+        margin: 0 auto 12px auto;
+        display: block;
+    }
+}
