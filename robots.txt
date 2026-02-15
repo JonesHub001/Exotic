@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://swagkennels.com/sitemap.xml
+Sitemap: https://exoticbullieskennelz.com/sitemap.xml
